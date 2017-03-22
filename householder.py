@@ -20,20 +20,30 @@ def calculate_householder(U):
 
 def calculate_optimized_householder(U, X):
     lbda = np.transpose(X)*U
-    print lbda
-    #return X - 2*lbda*U
+    return X - 2*lbda[0,0]*U
+
+
+def householder(X, Y):
+    return calculate_householder(calculate_U(X, Y))
+
+
+# Builds the matrix [ [Id, 0], [0, H] ] of size n
+#def reshape_householder(H, n):
+#    A = np.eye(H.size/2,
+
 
 ##################################
+# Tests
 
 X = np.matrix([3.0, 4, 0]) .T
 Y = np.matrix([0, 0, 5]) .T
 
 U = np.matrix(calculate_U(X, Y))
-print U
+print "Matrix U :\n", U
 
 H = calculate_householder(U)
-print H
+print "\nHouseholder :\n", H
 
 V = np.matrix([1,0,0]) . T
 S = calculate_optimized_householder(U, V)
-print S
+print "\nOptimized Householder :\n", S
