@@ -12,5 +12,7 @@ def decomp_svd(BD):
         S = R2
         U = U * Q2
         V = np.tranpose(Q1) * V
+
+        print "S\n", S
         assert(U*S*V == BD)
     return U, S, V
