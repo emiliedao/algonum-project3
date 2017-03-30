@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 
-def f(path):
+def compression(path,k):
 
     img = Image.open(path)
     (width,height) = img.size
