@@ -1,12 +1,13 @@
 import numpy as np;
 from householder import *
 
+# Mise sous forme bidiagonale
 def bidiagonal(A):
     n = A.shape[0]
     m = A.shape[1]
     
     Qleft = np.eye(n,n)
-    Qright = np.eye(n,n)
+    Qright = np.eye(m,m)
     BD = A
     print "BD\n", BD
 
@@ -17,10 +18,27 @@ def bidiagonal(A):
         Y = np.matrix(np.zeros([n-i,1]))
         Y[0,0] = np.linalg.norm(X)
         
-        U = np.zeros([n, 1])
-        U[i:n] = calculate_householder_vector(X, Y)
-        BD = 
+        U1 = np.zeros([n, 1])
+        U1[i:n] = calculate_householder_vector(X, Y)
+        Qleft = optimized_matrix_product_AxH(Qleft, U1)
+        BD = optimized_matrix_product_HxA(U1, BD)
 
-        if i != m-2:
+        if i < m-2:
             X = BD[i, (i+1):m]
-           
+            X = np.transpose(X)
+            Y = np.matrix(np.zeros([m-i-1,1]))
+            Y[0,0] = np.linalg.norm(X)
+
+            U2 = np.zeros([m, 1])
+            U2[(i+1):m] = calculate_householder_vector(X, Y)
+            Qright = optimized_matrix_product_HxA(U2, Qright)
+            BD = optimized_matrix_product_AxH(BD, U2)
+
+    return Qleft, BD, Qright
+
+# tests to remove
+A = np.matrix( [[1, 5, 3, 2 , 9 , 11],
+                [3, 6, 4, 1, 2 , 4],
+                [2, 1, 0, 7, 9 , 5]] )
+bidiagonal(A)
+

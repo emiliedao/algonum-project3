@@ -1,5 +1,8 @@
 import numpy as np
 
+# Algorithme de décomposition SVD : applique n fois la transformation QR (version numpy) sur la matrice bidiagonale BD
+# Precond : BD est bidiagonale
+# Postcond : S converge vers une matrice diagonale
 def decomp_svd(BD):
     n = len(BD)
     U = np.eye(n, n)
