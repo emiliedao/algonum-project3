@@ -36,31 +36,4 @@ def bidiagonal(A):
 
     return Qleft, BD, Qright
 
-# tests to remove
-A = np.matrix( [[1, 5],
-                [3, 6],
-                [2, 1]] )
-
-
-def print_m(A):
-
-    (n,m) = A.shape
-    print "\n"
-    for i in range(n):
-
-        for j in range(m):
-
-            if (abs(A[i,j]) < eps):
-                print ".",
-            else:
-                print "x",
-
-        print "\n"
-
-(L,BD,R) = bidiagonal(A)
-print_m(BD)
-print "\n\n\n"
-print BD
-print L*BD*R
-print A
 
