@@ -8,13 +8,13 @@ def print_m(A):
     (n,m) = A.shape
     print "\n"
     for i in range(n):
-
+        print "\n"
         for j in range(m):
 
             if (abs(A[i,j]) < eps):
-                print ".",
+                print ".\t",
             else:
-                print "x",
+                print "x\t",
 
         print "\n"
 
