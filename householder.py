@@ -27,12 +27,20 @@ def optimized_vector_product(U,X):
 
 
 def optimized_matrix_product_HxA(U,A):
-    assert((np.linalg.norm(U) - 1.0)<eps)
-    return A - 2*U*(U.transpose()*A)
+    #assert((np.linalg.norm(U) - 1.0)<eps)
+    U_trans = np.transpose(U)
+    X = np.dot(U_trans,A)
+    return A - 2*np.dot(U,X)
 
 def optimized_matrix_product_AxH(A,U):
-    assert((np.linalg.norm(U) - 1.0)<eps)
-    return A - 2*(A*U)*(U.transpose())
+    #assert((np.linalg.norm(U) - 1.0)<eps)
+    U_trans = np.transpose(U)
+    X = np.dot(A,U)
+    return A - 2*np.dot(X,U_trans)
+def regular_product_HxA(H,A):
+    product = np.dot(H,A)
+    return product
 
-
-
+def regular_product_AxH(A,H):
+    product = np.dot(A,H)
+    return product
