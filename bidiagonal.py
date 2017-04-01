@@ -1,5 +1,6 @@
 import numpy as np;
 from householder import *
+from matrix import *
 
 # Mise sous forme bidiagonale
 def bidiagonal(A):
@@ -34,6 +35,7 @@ def bidiagonal(A):
             Qright = optimized_matrix_product_HxA(U2, Qright)
             BD = optimized_matrix_product_AxH(BD, U2)
 
+        assert(equal_m(Qleft*BD*Qright, A))
     return Qleft, BD, Qright
 
 
@@ -42,11 +44,15 @@ def is_bidiagonal(A):
     (n,m) = A.shape
     for i in range(n):
         for j in range(m):
-            if j == i or j==i+1:
-                if A[i,j] <= 1e-10:
+            if (j == i or j==i+1) and n>1:
+                if abs(A[i,j]) <= 1e-10:
+                    # print "first i ", i, "j ", j
+                    # print A[i,j]
                     return False
             else:
-                if A[i,j] > 1e-10:
+                if abs(A[i,j]) > 1e-10 and i <= m and j <= n and n>1:
+                    # print "second i ", i, "j ", j
+                    # print A[i,j]
                     return False
 
     return True

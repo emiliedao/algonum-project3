@@ -15,5 +15,5 @@ print "Generated matrix\n", A
 # print_m(U)
 # print_m(S)
 # print_m(V)
-print_m(BD)
+# print_m(BD)
 assert(is_bidiagonal(BD))
