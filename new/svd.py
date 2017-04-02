@@ -3,6 +3,7 @@ from bidiagonal import *
 
 
 
+
 # Single Value Decomposition algorithm  : applies nmax times the QR decomposition on BD (numpy version)
 # Precond : BD is bidiagonal
 # Postcond : S converges to a diagonal matrix
@@ -20,6 +21,7 @@ def decomp_svd(BD,nmax=10,eps=1e-6):
         Q2, R2 = low_to_up_bidiag_qr(np.transpose(R1),eps)
 
         S = R2
+        histo_mat(S)
         U = U * Q2
         V = np.transpose(Q1) * V
 
@@ -27,6 +29,7 @@ def decomp_svd(BD,nmax=10,eps=1e-6):
     make_positive_diag(U,S)
         
     return U, S, V
+
 
 
 

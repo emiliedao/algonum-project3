@@ -1,5 +1,8 @@
 import random
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+
 
 
 # Prints shape of matrix A ('.' for a null value, else 'x')
@@ -17,6 +20,36 @@ def print_m(A,eps=1e-6):
                 print "x",
 
         print "\n"
+
+
+
+
+def histo_mat(M):
+
+    (n,m) = M.shape
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    
+    xpos = []
+    ypos = []
+    zpos = [0 for i in range(n*m)]
+
+    dx = [0.5 for j in range(n*m)]
+    dy = [0.5 for i in range(n*m)]
+    dz = []
+    
+    for i in range(n):
+        for j in range(m):
+            xpos.append(j)
+            ypos.append(i)
+            dz.append(abs(M[i,j]))
+
+
+    ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color='r', zsort='average')
+    plt.xlabel("i")
+    plt.ylabel ("j")
+    plt.show()
 
 
 # Returns True if matrices A and B are approximately (with an epsilon tolerance) equal
@@ -95,8 +128,8 @@ def rand_low_bidiag():
 # Generates random upper bidiagonal matrix
 def rand_up_bidiag():
     
-    n = random.randint(1, 10)
-    m = random.randint(1, 10)
+    n = random.randint(5, 20)
+    m = random.randint(5, 20)
     A = np.matrix(np.zeros([n,m]))
     
     for i in range(min(n,m)):

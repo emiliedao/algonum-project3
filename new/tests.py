@@ -59,10 +59,30 @@ def test_decomp_svd(nb_tests=100,nb_iter_svd=100,eps=1e-6):
 
 
 
+# Displays series of histograms representing the
+# matrix S becoming diagonal during svd transformation
+def test_conv_S(nmax=50,disp_freq=5,eps=1e-6):
 
+    BD = rand_up_bidiag()
+    
+    n = BD.shape[0]
+    m = BD.shape[1]
+    U = np.matrix(np.eye(n, n))
+    V = np.matrix(np.eye(m, m))
+    S = BD[:]
 
+    for i in range(nmax):
+    
+        Q1, R1 = low_to_up_bidiag_qr(np.transpose(S),eps)
+        Q2, R2 = low_to_up_bidiag_qr(np.transpose(R1),eps)
 
-
+        S = R2
+        
+        if i%disp_freq == 0:
+            histo_mat(S)
+            
+        U = U * Q2
+        V = np.transpose(Q1) * V
 
 
 
